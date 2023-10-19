@@ -26,13 +26,13 @@ public class ApplicantController {
 
     @PostMapping("/register_applicant")
     public Applicant registerApplicant(@RequestBody Applicant applicant) {
-        return applicantService.registerNewApplicantUsingDto(applicant);
+        return applicantService.applicantApply(applicant);
     }
 
 
     @PostMapping("/register_applicant_dto")
-    public ApplicantDtoReturn registerApplicantUsingDto(@RequestBody ApplicantDtoCreate applicant) {
-        return applicantService.registerNewApplicantUsingDto(applicant);
+    public String registerApplicantUsingDto(@RequestBody ApplicantDtoCreate applicant) {
+        return applicantService.applicantApply(applicant);
     }
 
 

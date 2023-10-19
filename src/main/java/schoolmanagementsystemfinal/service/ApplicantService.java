@@ -5,6 +5,6 @@ import schoolmanagementsystemfinal.dtos.ApplicantDtoReturn;
 import schoolmanagementsystemfinal.models.Applicant;
 
 public interface ApplicantService {
-    Applicant registerNewApplicantUsingDto(Applicant applicant);
-    ApplicantDtoReturn registerNewApplicantUsingDto(ApplicantDtoCreate applicantDtoCreate);
+    Applicant applicantApply(Applicant applicant);
+    String applicantApply(ApplicantDtoCreate applicantDtoCreate);
 }

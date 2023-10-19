@@ -15,5 +15,4 @@ public class ApplicantDtoCreate {
     private Integer age;
     private GENDER gender;
     private String email;
-    private EntranceSubjects  entranceSubjects;
 }

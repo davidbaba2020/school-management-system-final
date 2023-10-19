@@ -6,15 +6,14 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import schoolmanagementsystemfinal.enums.GENDER;
+import schoolmanagementsystemfinal.enums.ROLE;
 
 import java.util.List;
 
 @Data
 @Entity
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-//@Table(name = "applicant_tbl")
 public class Applicant extends Person{
     @OneToOne(
             cascade = {CascadeType.REMOVE,CascadeType.PERSIST},
@@ -25,5 +24,19 @@ public class Applicant extends Person{
     private String levelAppliedFor;
     private char grade='O';
 
-//    private ReportSheet entranceExamsResult;
+    public Applicant(String name, Integer age, GENDER gender, String email, ROLE role,  String levelAppliedFor, char grade) {
+        super(name, age, gender, email, role);
+        this.levelAppliedFor = levelAppliedFor;
+        this.grade = grade;
+    }
+
+
+    public Applicant(PersonBuilder<?, ?> b, String levelAppliedFor, char grade) {
+        super(b);
+        this.levelAppliedFor = levelAppliedFor;
+        this.grade = grade;
+    }
+
+
+    //    private ReportSheet entranceExamsResult;
 }

@@ -1,14 +1,12 @@
 package schoolmanagementsystemfinal.service.serviciveImpl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import schoolmanagementsystemfinal.dtos.ApplicantDtoCreate;
-import schoolmanagementsystemfinal.dtos.ApplicantDtoReturn;
-import schoolmanagementsystemfinal.dtos.EntranceSubjectsDTo;
 import schoolmanagementsystemfinal.enums.ROLE;
 import schoolmanagementsystemfinal.models.Applicant;
+import schoolmanagementsystemfinal.models.EntranceSubjects;
 import schoolmanagementsystemfinal.repositories.ApplicantRepository;
 import schoolmanagementsystemfinal.service.ApplicantService;
 
@@ -24,39 +22,37 @@ public class ApplicantServiceImpl implements ApplicantService {
     }
 
     @Override
-    public Applicant registerNewApplicantUsingDto(Applicant applicant) {
+    public Applicant applicantApply(Applicant applicant) {
         log.info("Applicant information,{} ",applicant);
         return applicantRepository.save(applicant);
     }
 
     @Override
-    public ApplicantDtoReturn registerNewApplicantUsingDto(ApplicantDtoCreate applicantDtoCreate) {
-
+    public String applicantApply(ApplicantDtoCreate applicantDtoCreate) {
+        String msg = "";
         Applicant applicant = new Applicant();
                 applicant.setEmail(applicantDtoCreate.getEmail());
                 applicant.setName(applicantDtoCreate.getName());
                 applicant.setLevelAppliedFor(applicantDtoCreate.getLevelAppliedFor());
                 applicant.setAge(applicantDtoCreate.getAge());
-                applicant.setEntranceSubjects(applicantDtoCreate.getEntranceSubjects());
+
+                EntranceSubjects entranceSubjects = EntranceSubjects.builder()
+                        .biologyScore(0.00)
+                        .englishScore(0.00)
+                        .mathematicsScore(0.00)
+                        .totalEntranceScore(0.00)
+                        .build();
+
+                applicant.setEntranceSubjects(entranceSubjects);
                 applicant.setRole(ROLE.APPLICANT);
 
+                if(!applicant.equals(null)) {
+                    msg="You have successfully registered, prepare for your entrance exams";
+                }
             applicantRepository.saveAndFlush(applicant);
 
-            ApplicantDtoReturn returnedApplicant  = new ApplicantDtoReturn();
 
-            BeanUtils.copyProperties(applicant,returnedApplicant);
-
-            EntranceSubjectsDTo entranceSubjectsDTo = new EntranceSubjectsDTo();
-
-            BeanUtils.copyProperties(applicant.getEntranceSubjects(),entranceSubjectsDTo);
-
-            returnedApplicant.setEntranceSubjects(entranceSubjectsDTo);
-
-            log.info("Returned response.....>>>>>,{}",applicant);
-            System.out.println(entranceSubjectsDTo);
-            log.info("ReturnedDTo response.....>>>>>,{}",returnedApplicant);
-
-        return returnedApplicant;
+        return msg;
     }
 
 }
