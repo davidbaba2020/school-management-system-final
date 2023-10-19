@@ -20,7 +20,7 @@ public class Applicant extends Person{
             cascade = {CascadeType.REMOVE,CascadeType.PERSIST},
             orphanRemoval = true
     )
-    private EntranceSubjects entranceSubjectsList;
+    private EntranceSubjects entranceSubjects;
     private Double averageEntranceScore;
     private String levelAppliedFor;
     private char grade='O';

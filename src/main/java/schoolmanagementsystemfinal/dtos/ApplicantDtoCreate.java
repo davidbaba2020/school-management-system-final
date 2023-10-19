@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import schoolmanagementsystemfinal.enums.GENDER;
+import schoolmanagementsystemfinal.models.EntranceSubjects;
 
 @Getter
 @Setter
@@ -14,4 +15,5 @@ public class ApplicantDtoCreate {
     private Integer age;
     private GENDER gender;
     private String email;
+    private EntranceSubjects  entranceSubjects;
 }

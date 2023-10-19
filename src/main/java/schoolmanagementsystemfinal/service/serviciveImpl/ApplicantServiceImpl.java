@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import schoolmanagementsystemfinal.dtos.ApplicantDtoCreate;
 import schoolmanagementsystemfinal.dtos.ApplicantDtoReturn;
+import schoolmanagementsystemfinal.dtos.EntranceSubjectsDTo;
 import schoolmanagementsystemfinal.enums.ROLE;
 import schoolmanagementsystemfinal.models.Applicant;
 import schoolmanagementsystemfinal.repositories.ApplicantRepository;
@@ -36,14 +37,27 @@ public class ApplicantServiceImpl implements ApplicantService {
                 applicant.setName(applicantDtoCreate.getName());
                 applicant.setLevelAppliedFor(applicantDtoCreate.getLevelAppliedFor());
                 applicant.setAge(applicantDtoCreate.getAge());
+                applicant.setEntranceSubjects(applicantDtoCreate.getEntranceSubjects());
                 applicant.setRole(ROLE.APPLICANT);
 
-        applicantRepository.saveAndFlush(applicant);
+            applicantRepository.saveAndFlush(applicant);
 
-        ApplicantDtoReturn returnedApplicant  = new ApplicantDtoReturn();
-        BeanUtils.copyProperties(applicant,returnedApplicant);
+            ApplicantDtoReturn returnedApplicant  = new ApplicantDtoReturn();
+
+            BeanUtils.copyProperties(applicant,returnedApplicant);
+
+            EntranceSubjectsDTo entranceSubjectsDTo = new EntranceSubjectsDTo();
+
+            BeanUtils.copyProperties(applicant.getEntranceSubjects(),entranceSubjectsDTo);
+
+            returnedApplicant.setEntranceSubjects(entranceSubjectsDTo);
+
+            log.info("Returned response.....>>>>>,{}",applicant);
+            System.out.println(entranceSubjectsDTo);
+            log.info("ReturnedDTo response.....>>>>>,{}",returnedApplicant);
 
         return returnedApplicant;
     }
 
 }
+
